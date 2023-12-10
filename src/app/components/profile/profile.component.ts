@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Movie } from 'src/app/models/movie';
 import { MoviesService } from 'src/app/service/movies.service';
+import { Favourite } from 'src/app/models/favourite';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -11,6 +13,8 @@ export class ProfileComponent implements OnInit {
   idUtente!: any;
   movies: any;
   results: any;
+  map2: any;
+  movieIds: any;
 
   ngOnInit(): void {
     this.moviesSrv.getMovies().subscribe((data) => {
@@ -23,13 +27,15 @@ export class ProfileComponent implements OnInit {
     this.idUtente = this.idUtente.user.id;
 
     this.moviesSrv.getFavourites(this.idUtente).subscribe((data) => {
+      console.log(data);
       this.favourites = data;
-      console.log(this.favourites);
+      this.movieIds = this.favourites.map((item: any) => {
+        item.movieId;
+      });
+      this.results = this.movies.filter((item: any) => {
+        this.movieIds.includes(item.id);
+      });
+      console.log(this.results);
     });
-
-    this.movies.filter((m: any) => {
-      this.favourites.includes(m);
-    });
-    console.log('risultato ', this.movies);
   }
 }

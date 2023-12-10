@@ -7,6 +7,8 @@ export const environment = {
   apiUrl: 'http://localhost:4201/',
   moviesUrl: 'http://localhost:4201/movies-popular',
   favouritesUrl: 'http://localhost:4201/favorites?userId=',
+  addFavouritesUrl: 'http://localhost:4201/favorites',
+  deleteFavourites: 'http://localhost:4201/favorites/',
 };
 
 /*

@@ -12,14 +12,27 @@ import { Favourite } from '../models/favourite';
 export class MoviesService {
   moviesUrl = environment.moviesUrl;
   favouritesUrl = environment.favouritesUrl;
+  addFavouriteUrl = environment.addFavouritesUrl;
+  deleteFavouriteUrl = environment.deleteFavourites;
 
   constructor(private http: HttpClient, private router: Router) {}
 
   getMovies() {
-    return this.http.get<Movie>(this.moviesUrl);
+    return this.http.get(this.moviesUrl);
   }
 
   getFavourites(id: number) {
-    return this.http.get<Favourite>(`${this.favouritesUrl}${id}`);
+    return this.http.get(`${this.favouritesUrl}${id}`);
+  }
+
+  addFavourites(userId: number, movieId: any) {
+    return this.http.post(this.addFavouriteUrl, {
+      userId: userId,
+      movieId: movieId,
+    });
+  }
+
+  deleteFavourites(id: number) {
+    return this.http.delete(`${this.deleteFavouriteUrl}${id}`);
   }
 }
