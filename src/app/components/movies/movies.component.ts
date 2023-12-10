@@ -31,9 +31,24 @@ export class MoviesComponent implements OnInit {
   }
 
   aggiungiFavorito(movieObj: any) {
-    this.moviesSrv
-      .addFavourites(this.idUtente, movieObj.id)
-      .subscribe((data) => {});
-    console.log(movieObj.id);
+    let preferiti = null;
+    let film = null;
+    this.moviesSrv.getMovies().subscribe((data) => {
+      //recupero film
+      film = data;
+      console.log('film ', film);
+    });
+    this.moviesSrv.getFavourites(this.idUtente).subscribe((data) => {
+      //recupero preferiti
+      preferiti = data;
+      console.log('preferiti ', preferiti);
+    });
+
+    console.log('movieObj ', movieObj);
+
+    // this.moviesSrv
+    //   .addFavourites(this.idUtente, movieObj.id)
+    //   .subscribe((data) => {});
+    // console.log(movieObj.id);
   }
 }
