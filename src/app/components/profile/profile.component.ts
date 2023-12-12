@@ -9,12 +9,11 @@ import { Favourite } from 'src/app/models/favourite';
 })
 export class ProfileComponent implements OnInit {
   constructor(private moviesSrv: MoviesService) {}
-  favourites: any;
-  idUtente!: any;
-  movies: any;
+  favourites!: Favourite[];
+  idUtente: any;
+  nomeUtente: any;
+  movies!: Movie[];
   results: any;
-  map2: any;
-  movieIds: any;
 
   ngOnInit(): void {
     this.moviesSrv.getMovies().subscribe((data) => {
@@ -26,15 +25,24 @@ export class ProfileComponent implements OnInit {
     this.idUtente = JSON.parse(this.idUtente);
     this.idUtente = this.idUtente.user.id;
 
+    this.nomeUtente = localStorage.getItem('user');
+    this.nomeUtente = JSON.parse(this.nomeUtente);
+    this.nomeUtente = this.nomeUtente.user.nome;
+
     this.moviesSrv.getFavourites(this.idUtente).subscribe((data) => {
-      console.log(data);
       this.favourites = data;
-      this.movieIds = this.favourites.map((item: any) => {
-        item.movieId;
-      });
-      this.results = this.movies.filter((item: any) => {
-        this.movieIds.includes(item.id);
-      });
+      console.log(data);
+      const filterByReference = (movies: any, fav: any) => {
+        let res = [];
+        res = movies.filter((el: any) => {
+          return fav.find((element: any) => {
+            return element.movieId === el.id;
+          });
+        });
+        this.results = res;
+        return res;
+      };
+      filterByReference(this.movies, this.favourites);
       console.log(this.results);
     });
   }

@@ -18,11 +18,11 @@ export class MoviesService {
   constructor(private http: HttpClient, private router: Router) {}
 
   getMovies() {
-    return this.http.get(this.moviesUrl);
+    return this.http.get<Movie[]>(this.moviesUrl);
   }
 
   getFavourites(id: number) {
-    return this.http.get(`${this.favouritesUrl}${id}`);
+    return this.http.get<Favourite[]>(`${this.favouritesUrl}${id}`);
   }
 
   addFavourites(userId: number, movieId: any) {

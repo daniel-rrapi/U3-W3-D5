@@ -11,7 +11,10 @@
           <div class="card-body">
             <h5 class="card-title">{{ movie.title }}</h5>
             <p class="card-text">{{ movie.overview }}</p>
-            <a [class]="btnclass" (click)="aggiungiFavorito(movie)">
+            <a
+              [ngClass]="[oggettoCorrispondente(movie)]"
+              (click)="checkFavourite(movie)"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"

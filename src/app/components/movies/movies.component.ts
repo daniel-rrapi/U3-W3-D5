@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MoviesService } from 'src/app/service/movies.service';
+import { Movie } from 'src/app/models/movie';
+import { Favourite } from 'src/app/models/favourite';
 
 @Component({
   selector: 'app-movies',
@@ -8,9 +10,18 @@ import { MoviesService } from 'src/app/service/movies.service';
 })
 export class MoviesComponent implements OnInit {
   movies: any;
+  favourites: any;
+  favouritesComplete: any;
   btnclass: string = 'btn btn-outline-primary';
   idUtente: any;
-  favourites: any;
+  oggettoCorrispondente(movieObj: any) {
+    this.favourites.find(
+      (oggetto: any) =>
+        oggetto.userId === this.idUtente &&
+        oggetto.movieId === movieObj.idUtente
+    );
+    return 'btn btn-danger';
+  }
 
   constructor(private moviesSrv: MoviesService) {}
 
@@ -27,28 +38,41 @@ export class MoviesComponent implements OnInit {
     this.moviesSrv.getFavourites(this.idUtente).subscribe((data) => {
       this.favourites = data;
       console.log('preferiti ', this.favourites);
+      const filterByReference = (movies: any, fav: any) => {
+        let res = [];
+        res = movies.filter((el: any) => {
+          return fav.find((element: any) => {
+            return element.movieId === el.id;
+          });
+        });
+        this.favouritesComplete = res;
+        return res;
+      };
+      filterByReference(this.movies, this.favourites);
+      console.log(this.favouritesComplete);
     });
   }
 
-  aggiungiFavorito(movieObj: any) {
-    let preferiti = null;
-    let film = null;
-    this.moviesSrv.getMovies().subscribe((data) => {
-      //recupero film
-      film = data;
-      console.log('film ', film);
-    });
-    this.moviesSrv.getFavourites(this.idUtente).subscribe((data) => {
-      //recupero preferiti
-      preferiti = data;
-      console.log('preferiti ', preferiti);
-    });
-
-    console.log('movieObj ', movieObj);
-
-    // this.moviesSrv
-    //   .addFavourites(this.idUtente, movieObj.id)
-    //   .subscribe((data) => {});
-    // console.log(movieObj.id);
+  checkFavourite(movieObj: any) {
+    let presente = this.favouritesComplete.some(
+      (oggetto: any) => oggetto.id === movieObj.id
+    );
+    if (presente) {
+      console.log('cè: eliminazione in corso...');
+      let oggettoCorrispondente = this.favourites.find(
+        (oggetto: any) =>
+          oggetto.userId === this.idUtente && oggetto.movieId === movieObj.id
+      );
+      console.log('ogg corrispondente ', oggettoCorrispondente);
+      this.moviesSrv
+        .deleteFavourites(oggettoCorrispondente.id)
+        .subscribe((data) => {});
+    } else {
+      console.log('nn cè: aggiunta in corso...');
+      this.moviesSrv
+        .addFavourites(this.idUtente, movieObj.id)
+        .subscribe((data) => {});
+    }
+    console.log(movieObj);
   }
 }
