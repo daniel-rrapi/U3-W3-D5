@@ -1,8 +1,5 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MoviesService } from 'src/app/service/movies.service';
-import { Movie } from 'src/app/models/movie';
-import { Favourite } from 'src/app/models/favourite';
-import { retry } from 'rxjs';
 
 @Component({
   selector: 'app-movies',
@@ -16,10 +13,7 @@ export class MoviesComponent implements OnInit {
   btnclass: string = 'btn btn-outline-primary';
   idUtente: any;
 
-  constructor(
-    private moviesSrv: MoviesService,
-    private ref: ChangeDetectorRef
-  ) {}
+  constructor(private moviesSrv: MoviesService) {}
 
   ngOnInit(): void {
     this.idUtente = localStorage.getItem('user');
@@ -82,6 +76,5 @@ export class MoviesComponent implements OnInit {
         .subscribe((data) => {});
     }
     console.log(movieObj);
-    this.ref.detectChanges();
   }
 }

@@ -24,16 +24,6 @@
   "favorites": [
     {
       "userId": 3,
-      "movieId": 578701,
-      "id": 1
-    },
-    {
-      "userId": 3,
-      "movieId": 567189,
-      "id": 2
-    },
-    {
-      "userId": 3,
       "movieId": 460465,
       "id": 3
     }
