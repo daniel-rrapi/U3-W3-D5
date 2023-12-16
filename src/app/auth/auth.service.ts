@@ -30,7 +30,19 @@ export class AuthService {
     );
   }
 
-  // restore() {}
+  restore() {
+    const user = localStorage.getItem('user');
+    if (!user) {
+      this.router.navigate(['/login']);
+      return;
+    }
+    const userData: AuthData = JSON.parse(user);
+    if (this.jwtHelper.isTokenExpired(userData.accessToken)) {
+      this.router.navigate(['/login']);
+      return;
+    }
+    this.authSubj.next(userData);
+  }
 
   register(data: {
     nome: string;

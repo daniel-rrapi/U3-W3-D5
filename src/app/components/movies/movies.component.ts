@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MoviesService } from 'src/app/service/movies.service';
 import { Movie } from 'src/app/models/movie';
 import { Favourite } from 'src/app/models/favourite';
+import { retry } from 'rxjs';
 
 @Component({
   selector: 'app-movies',
@@ -14,16 +15,11 @@ export class MoviesComponent implements OnInit {
   favouritesComplete: any;
   btnclass: string = 'btn btn-outline-primary';
   idUtente: any;
-  oggettoCorrispondente(movieObj: any) {
-    this.favourites.find(
-      (oggetto: any) =>
-        oggetto.userId === this.idUtente &&
-        oggetto.movieId === movieObj.idUtente
-    );
-    return 'btn btn-danger';
-  }
 
-  constructor(private moviesSrv: MoviesService) {}
+  constructor(
+    private moviesSrv: MoviesService,
+    private ref: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.idUtente = localStorage.getItem('user');
@@ -52,6 +48,18 @@ export class MoviesComponent implements OnInit {
       console.log(this.favouritesComplete);
     });
   }
+  ngOnChanges() {}
+  setFavouriteBtn(movieObj: any) {
+    let presente = this.favouritesComplete.some(
+      (oggetto: any) => oggetto.id === movieObj.id
+    );
+
+    if (presente) {
+      return 'btn btn-danger';
+    } else {
+      return 'btn btn-outline-danger';
+    }
+  }
 
   checkFavourite(movieObj: any) {
     let presente = this.favouritesComplete.some(
@@ -74,5 +82,6 @@ export class MoviesComponent implements OnInit {
         .subscribe((data) => {});
     }
     console.log(movieObj);
+    this.ref.detectChanges();
   }
 }

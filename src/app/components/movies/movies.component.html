@@ -12,8 +12,8 @@
             <h5 class="card-title">{{ movie.title }}</h5>
             <p class="card-text">{{ movie.overview }}</p>
             <a
-              [ngClass]="[oggettoCorrispondente(movie)]"
               (click)="checkFavourite(movie)"
+              [ngClass]="setFavouriteBtn(movie)"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
