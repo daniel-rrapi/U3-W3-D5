@@ -1,5 +1,7 @@
-<h1>Ciao {{ nomeUtente }}</h1>
-<h4>Film preferiti:</h4>
-<div *ngFor="let movie of results; index as i">
-  <p>{{ i + 1 }}) {{ movie.title }}</p>
+<div class="container">
+  <h1 class="mt-5">Ciao {{ nomeUtente | titlecase }}.</h1>
+  <h2>Film preferiti:</h2>
+  <div *ngFor="let movie of results; index as i">
+    <p>{{ i + 1 }}) {{ movie.title }}</p>
+  </div>
 </div>

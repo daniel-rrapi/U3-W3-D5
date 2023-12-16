@@ -6,6 +6,9 @@ nav {
 nav a {
   color: white;
 }
+nav a:hover {
+  color: #00acc1;
+}
 .navbar-nav .nav-link.active,
 .navbar-nav .nav-link.show .navbar-brand {
   color: #00acc1;
