@@ -1,7 +1,7 @@
-<div class="container">
+<div class="container mt-5">
   <form #form="ngForm" (submit)="registra(form)">
-    <div class="form-group">
-      <label for="nome">nome</label>
+    <div class="form-group mb-3">
+      <label for="nome">Nome:</label>
       <input
         type="text"
         name="nome"
@@ -11,8 +11,8 @@
         ngModel
       />
     </div>
-    <div class="form-group">
-      <label for="cognome">cognome</label>
+    <div class="form-group mb-3">
+      <label for="cognome">Cognome: </label>
       <input
         type="text"
         name="cognome"
@@ -22,8 +22,8 @@
         ngModel
       />
     </div>
-    <div class="form-group">
-      <label for="email">email</label>
+    <div class="form-group mb-3">
+      <label for="email">Email:</label>
       <input
         type="email"
         name="email"
@@ -33,8 +33,8 @@
         ngModel
       />
     </div>
-    <div class="form-group">
-      <label for="password">password</label>
+    <div class="form-group mb-3">
+      <label for="password">Password:</label>
       <input
         type="password"
         name="password"

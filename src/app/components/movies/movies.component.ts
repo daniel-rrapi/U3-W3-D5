@@ -42,7 +42,7 @@ export class MoviesComponent implements OnInit {
       console.log(this.favouritesComplete);
     });
   }
-  ngOnChanges() {}
+
   setFavouriteBtn(movieObj: any) {
     let presente = this.favouritesComplete.some(
       (oggetto: any) => oggetto.id === movieObj.id

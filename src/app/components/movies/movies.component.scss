@@ -1,0 +1,18 @@
+h5 {
+  color: white;
+}
+.card-body {
+  background: linear-gradient(
+    180deg,
+    transparent 0,
+    rgba(0, 0, 0, 0.65) 48%,
+    rgba(0, 0, 0, 0.65)
+  );
+  width: 100%;
+  text-align: center;
+  height: auto;
+  padding: 5px;
+}
+.card {
+  border: transparent;
+}
