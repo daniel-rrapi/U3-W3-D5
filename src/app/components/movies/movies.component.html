@@ -13,8 +13,12 @@
             </h5>
           </div>
           <button
-            [class]="setFavouriteBtn(movie)"
-            (click)="checkFavourite(movie)"
+            [class]="
+              setFavouriteBtn(movie)
+                ? 'btn btn-danger'
+                : 'btn btn-outline-danger'
+            "
+            (click)="checkFavourite(movie, $event)"
             class="position-absolute top-0 end-0"
           >
             <svg

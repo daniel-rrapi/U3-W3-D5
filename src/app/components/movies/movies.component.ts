@@ -49,13 +49,14 @@ export class MoviesComponent implements OnInit {
     );
 
     if (presente) {
-      return 'btn btn-danger';
+      return true;
     } else {
-      return 'btn btn-outline-danger';
+      return false;
     }
   }
 
-  checkFavourite(movieObj: any) {
+  checkFavourite(movieObj: any, e: Event) {
+    const elementoPadre = e.currentTarget as HTMLElement;
     let presente = this.favouritesComplete.some(
       (oggetto: any) => oggetto.id === movieObj.id
     );
@@ -66,15 +67,25 @@ export class MoviesComponent implements OnInit {
           oggetto.userId === this.idUtente && oggetto.movieId === movieObj.id
       );
       console.log('ogg corrispondente ', oggettoCorrispondente);
+
       this.moviesSrv
         .deleteFavourites(oggettoCorrispondente.id)
         .subscribe((data) => {});
+      // e.target.className =
+      //   'position-absolute top-0 end-0 btn btn-outline-danger';
     } else {
       console.log('nn cè: aggiunta in corso...');
       this.moviesSrv
         .addFavourites(this.idUtente, movieObj.id)
         .subscribe((data) => {});
+      // e.target.className = 'position-absolute top-0 end-0 btn btn-danger';
     }
-    console.log(movieObj);
+    if (elementoPadre.classList.contains('btn-outline-danger')) {
+      elementoPadre.classList.remove('btn-outline-danger');
+      elementoPadre.classList.add('btn-danger');
+    } else {
+      elementoPadre.classList.remove('btn-danger');
+      elementoPadre.classList.add('btn-outline-danger');
+    }
   }
 }
